@@ -48,7 +48,8 @@ export default function UpdateProfile() {
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          {!currentUser.emailVerified && <Alert variant="danger">You need to verify your account to update your profile</Alert>}
+          {currentUser.emailVerified && <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -77,7 +78,8 @@ export default function UpdateProfile() {
             <Button disabled={loading} className="w-100" type="submit">
               Update
             </Button>
-          </Form>
+          </Form>}
+          
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">

@@ -12,6 +12,10 @@ export function AuthProvider({ children }) {
   const signup = (email, password) => {
       return auth.createUserWithEmailAndPassword(email, password)
   }
+  function mailverify (user) {
+    return user.sendEmailVerification()
+  }
+
 
   const signin = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password)
@@ -36,6 +40,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
         setCurrentUser(user)
+        
         setLoading(false)
         
     })
@@ -50,7 +55,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
+    mailverify
   };
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 }
